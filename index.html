@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>浅笑安然的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="浅笑安然的笔记">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="浅笑安然的笔记">
+<meta property="og:locale">
+<meta property="article:author" content="qxiao">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="浅笑安然的笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">浅笑安然的笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-README" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/11/README/" class="article-date">
+  <time datetime="2021-07-11T01:24:48.082Z" itemprop="datePublished">2021-07-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/README/">HTTP缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="缓存的概念"><a href="#缓存的概念" class="headerlink" title="缓存的概念"></a>缓存的概念</h2><p>HTTP缓存是用于临时存储web文档以减少服务器延迟的一种信息技术。<br>当用户首次访问网页时，如果请求满足某些条件，资源文件会被缓存在内存中，同时也会在本地磁盘中保留一份副本。<br>当用户刷新页面时，如果缓存的资源没有过期， 就可以直接从内存中读取数据并加载。当用户关闭页面后，当前页面缓存在内存中的资源就会被清空。<br>当用户再一次访问页面时，如果资源文件的缓存没有过期，就可以从本地磁盘加载数据并再次缓存到内存中。</p>
+<h2 id="缓存的作用和优势"><a href="#缓存的作用和优势" class="headerlink" title="缓存的作用和优势"></a>缓存的作用和优势</h2><p>在前端开发中，性能问题一直都是最值得重视的一点，判断一个网站的性能如何，最直观的方法就是看网页的打开速度。其中，提高网页打开速度的一个方式就是使用缓存。<br>合理地利用缓存，能够最大限度地读取和利用本地已有静态资源，减少数据传输，减少延迟，从而加快网页应用的呈现。<br>并且由于缓存文件可以重复利用，因此可以减少带宽，降低网络负荷。在用户较少的情况下作用并不是特别明显，但是在高并发的场景下，使用缓存对于服务器的负担非常有帮助。</p>
+<h2 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h2><p>按照缓存策略，HTTP缓存可以分为强缓存和协商缓存两大类。如下图所示：</p>
+<p><img src="https://i.loli.net/2021/05/06/aiHjZsCJqfKrSyn.png" alt="微信截图_20210506001452.png"></p>
+<h2 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h2><p><code>public</code>  </p>
+<p>表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存，即使是通常不可缓存的内容。（例如：1.该响应没有max-age指令或Expires消息头；2. 该响应对应的请求方法是 POST 。）</p>
+<p><code>private</code>  </p>
+<p>表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。私有缓存可以缓存响应内容，比如：对应用户的本地浏览器。  </p>
+<p><code>no-cache</code>  </p>
+<p>在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证(协商缓存验证)。  </p>
+<p><code>no-store</code>  </p>
+<p>缓存不应存储有关客户端请求或服务器响应的任何内容，即不使用任何缓存</p>
+<p><code>max-age=&lt;seconds&gt;</code>  </p>
+<p>设置缓存存储的最大周期，超过这个时间缓存被认为过期(单位秒)。与Expires相反，时间是相对于请求的时间。<br>缓存未过期, 读取本地缓存，不会向服务器发送请求。 </p>
+<p><img src="https://i.loli.net/2021/05/06/xIN42MXugnHF8bj.png" alt="微信截图_20210506112056.png"></p>
+<p>缓存已过期，走协商缓存，向服务器发送请求验证资源是否变更。无变更-》304，有变更-》200。</p>
+<p><img src="https://i.loli.net/2021/05/06/LtTIbClHNhWRE6m.png" alt="image.png"></p>
+<p><code>s-maxage=&lt;seconds&gt;</code>  </p>
+<p>覆盖max-age或者Expires头，但是仅适用于共享缓存(比如各个代理)，私有缓存会忽略它。  </p>
+<p><code>must-revalidate</code>  </p>
+<p>一旦资源过期（比如已经超过max-age），在成功向原始服务器验证之前，缓存不能用该资源响应后续请求。  </p>
+<p><code>proxy-revalidate</code>  </p>
+<p>与<code>must-revalidate</code>作用相同，但它仅适用于共享缓存（例如代理），并被私有缓存忽略。</p>
+<h2 id="Etag"><a href="#Etag" class="headerlink" title="Etag"></a>Etag</h2><p><code>ETag</code> HTTP响应头是资源的特定版本的标识符。这可以让缓存更高效，并节省带宽，因为如果内容没有改变，Web服务器不需要发送完整的响应。而如果内容发生了变化，使用ETag有助于防止资源的同时更新相互覆盖（“空中碰撞”）。</p>
+<p>如果给定URL中的资源更改，则一定要生成新的Etag值。 因此Etags类似于指纹，也可能被某些服务器用于跟踪。 比较etags能快速确定此资源是否变化，但也可能被跟踪服务器永久存留</p>
+<p><code>W/ 可选</code>  </p>
+<p>‘W/‘(大小写敏感) 表示使用弱验证器。 弱验证器很容易生成，但不利于比较。 强验证器是比较的理想选择，但很难有效地生成。 相同资源的两个弱Etag值可能语义等同，但不是每个字节都相同。  </p>
+<p><code>&lt;etag_value&gt;</code>  </p>
+<p>实体标签唯一地表示所请求的资源。 它们是位于双引号之间的ASCII字符串（如“675af34563dc-tr34”）。 没有明确指定生成ETag值的方法。<br>通常，使用内容的散列，最后修改时间戳的哈希值，或简单地使用版本号。 例如，MDN使用wiki内容的十六进制数字的哈希值。<br><img src="https://i.loli.net/2021/05/06/9J3prNIUL58Tunb.png" alt="微信截图_20210506102430.png"></p>
+<h2 id="If-None-Match"><a href="#If-None-Match" class="headerlink" title="If-None-Match"></a>If-None-Match</h2><p><code>If-None-Match</code> 是一个条件式请求首部。对于 <code>GET</code> 和 <code>HEAD</code> 请求方法来说，当且仅当服务器上没有任何资源的 <code>ETag</code> 属性值与这个首部中列出的相匹配的时候，服务器端会才返回所请求的资源，响应码为  200  。<br>对于其他方法来说，当且仅当最终确认没有已存在的资源的  <code>ETag</code> 属性值与这个首部中所列出的相匹配的时候，才会对请求进行相应的处理。</p>
+<p><img src="https://i.loli.net/2021/05/06/QwMXPRCrl3bfU4F.png" alt="微信截图_20210506102701.png"></p>
+<h2 id="Last-Modified"><a href="#Last-Modified" class="headerlink" title="Last-Modified"></a>Last-Modified</h2><p><code>Last-Modified</code>  是一个响应首部，其中包含源头服务器认定的资源做出修改的日期及时间。 它通常被用作一个验证器来判断接收到的或者存储的资源是否彼此一致。<br>由于精确度比  ETag 要低，所以这是一个备用机制。包含有  If-Modified-Since 或 If-Unmodified-Since 首部的条件请求会使用这个字段。</p>
+<p><img src="https://i.loli.net/2021/05/06/wGUClImTxy7q26D.png" alt="img.png"></p>
+<h2 id="If-Modified-Since"><a href="#If-Modified-Since" class="headerlink" title="If-Modified-Since"></a>If-Modified-Since</h2><p><code>If-Modified-Since</code> 是一个条件式请求首部，服务器只在所请求的资源在给定的日期时间之后对内容进行过修改的情况下才会将资源返回，状态码为 200 。<br>如果请求的资源从那时起未经修改，那么返回一个不带有消息主体的  304  响应，而在 <code>Last-Modified</code> 首部中会带有上次修改时间。<br>不同于 <code>If-Unmodified-Since</code>, If-Modified-Since 只可以用在 GET 或 HEAD 请求中。</p>
+<p>当与 <code>If-None-Match</code> 一同出现时，它（<code>If-Modified-Since</code>）会被忽略掉，除非服务器不支持 <code>If-None-Match</code>。</p>
+<p><img src="https://i.loli.net/2021/05/06/tUFu6HdaresT5MI.png" alt="微信截图_20210506100424.png"></p>
+<h2 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h2><p><code>Expires</code> 响应头包含日期/时间， 即在此时候之后，响应过期。  </p>
+<p>无效的日期，比如 0, 代表着过去的日期，即该资源已经过期。  </p>
+<p>如果在<code>Cache-Control</code>响应头设置了 <code>max-age</code> 或者 <code>s-max-age</code> 指令，那么 <code>Expires</code> 头会被忽略。</p>
+<p><code>Expires</code>有一个非常大的缺陷，它使用一个固定的时间，受限于本地时间，如果修改了本地时间，可能会造成缓存失效。<br>所以要求服务器与客户端的时钟保持严格的同步，并且这一天到来后，服务器还得重新设定新的时间。</p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://i.loli.net/2021/05/05/hQ9yWkPveFMomKH.png" alt="微信截图_20210505234825.png"></p>
+<p>如图所示， 其中强制缓存优先级最高，并且缓存有效期内浏览器不会因为资源的改动而发送请求，因此强制缓存的使用适用于比较大而且不会轻易修改的资源文件。  </p>
+<p>协商缓存灵活性高，适用于数据缓存，采用Etag标识比对文件内容是否发生变化的灵活都最高，也最为可靠。<br>对于数据的缓存，可以重点考虑将数据缓存在内存中，因为内存加载速度最快，并且数据的体积比较小。</p>
+<h2 id="缓存和浏览器操作"><a href="#缓存和浏览器操作" class="headerlink" title="缓存和浏览器操作"></a>缓存和浏览器操作</h2><p>常见的浏览器操作对应的缓存有如下行为：</p>
+<ul>
+<li>当用户使用 <kbd>Ctrl</kbd> + <kbd>F5</kbd> 强制刷新网页时，浏览器会直接从服务器加载网页信息，跳过强缓存和协商缓存。  </li>
+<li>当用户使用 <kbd>F5</kbd> 刷新网页时，浏览器的加载过程会跳过强缓存，但是仍然会进行协商缓存。</li>
+</ul>
+<p>如下表格所示，典型的刷新操作对应的缓存行为：</p>
+<table>
+<thead>
+<tr>
+<th align="left">浏览器操作</th>
+<th align="left">Expires/Cache-Control</th>
+<th align="left">Last-Modified/Etag</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">地址栏中按回车键</td>
+<td align="left">有效</td>
+<td align="left">有效</td>
+</tr>
+<tr>
+<td align="left">页面跳转</td>
+<td align="left">有效</td>
+<td align="left">有效</td>
+</tr>
+<tr>
+<td align="left">新窗口打开</td>
+<td align="left">有效</td>
+<td align="left">有效</td>
+</tr>
+<tr>
+<td align="left">浏览器前进后退</td>
+<td align="left">有效</td>
+<td align="left">有效</td>
+</tr>
+<tr>
+<td align="left">浏览器刷新</td>
+<td align="left">无效</td>
+<td align="left">有效</td>
+</tr>
+<tr>
+<td align="left">强制刷新</td>
+<td align="left">无效</td>
+<td align="left">无效</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/07/11/README/" data-id="ckqyixv0a0001q4ce9dvteqbj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/11/hello-world2/" class="article-date">
+  <time datetime="2021-07-11T01:24:01.947Z" itemprop="datePublished">2021-07-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/hello-world2/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/07/11/hello-world2/" data-id="ckqyixv0m0003q4cehd8d4afe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/11/hello-world1/" class="article-date">
+  <time datetime="2021-07-11T01:23:53.240Z" itemprop="datePublished">2021-07-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/hello-world1/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/07/11/hello-world1/" data-id="ckqyixv0c0002q4cedi5652jy" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/11/hello-world/" class="article-date">
+  <time datetime="2021-07-11T01:12:51.878Z" itemprop="datePublished">2021-07-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/07/11/hello-world/" data-id="ckqyixv030000q4cegauic3o3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/07/11/README/">HTTP缓存</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/11/hello-world2/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/11/hello-world1/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/11/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 qxiao<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
